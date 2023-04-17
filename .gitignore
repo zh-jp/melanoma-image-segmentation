@@ -1,6 +1,7 @@
-/data/imgs/
-/data/masks/
+**/imgs/*
+!**/imgs/ISIC_0000000.jpg
+**/masks/*
+!**/masks/ISIC_0000000_segmentation.png
 /.idea/
 /test/
-/test.py
 
