@@ -6,6 +6,8 @@ from os import listdir
 import torch
 from PIL import Image
 
+uniform = (512, 512)    # 将读入的img、mask，resize该形状
+
 
 class MyDataset(Dataset):
     def __init__(self, img_dir: str, mask_dir: str, scale: float = 1., mask_suffix: str = "_segmentation"):
@@ -45,6 +47,10 @@ class MyDataset(Dataset):
         # 如果图片和掩膜的大小不一致则报错
         assert mask.size == img.size, f"Image and mask {name}'s size should be same, " \
                                       f"but mask size is {mask.size} and image size is {img.size}."
+
+        # 统一图片大小
+        mask = mask.resize(uniform)
+        img = img.resize(uniform)
 
         # 将图片转为numpy数组
         mask = self.preprocess(mask, self.scale, is_mask=True)

@@ -33,3 +33,14 @@ class UNet(nn.Module):
         x = self.up4(x, x1)
         logits = self.outc(x)
         return logits
+
+    def use_checkpoint(self):
+        self.inc = torch.utils.checkpoint(self.inc)
+        self.down1 = torch.utils.checkpoint(self.down1)
+        self.down2 = torch.utils.checkpoint(self.down2)
+        self.down3 = torch.utils.checkpoint(self.down3)
+        self.down4 = torch.utils.checkpoint(self.down4)
+        self.up1 = torch.utils.checkpoint(self.up1)
+        self.up2 = torch.utils.checkpoint(self.up2)
+        self.up3 = torch.utils.checkpoint(self.up3)
+        self.up4 = torch.utils.checkpoint(self.up4)
