@@ -43,7 +43,7 @@ class Up(nn.Module):
 
     # bilinear: 双线性图像插值法
     def __init__(self, in_channels, out_channels, bilinear=True):
-        super.__init__()
+        super().__init__()
         if bilinear:
             self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)  # 采样不会超过图像边缘
             self.conv = DoubleConv(in_channels, out_channels, in_channels // 2)
@@ -54,11 +54,11 @@ class Up(nn.Module):
     def forward(self, x1, x2):
         x1 = self.up(x1)
         diffY = x2.size()[2] - x1.size()[2]
-        diffX = x2.size()[3] - x2.size()[3]
+        diffX = x2.size()[3] - x1.size()[3]
         x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,
                         diffY // 2, diffY - diffY // 2])
         x = torch.cat([x2, x1], dim=1)
-        return self.conv(2)
+        return self.conv(x)
 
 
 class OutConv(nn.Module):

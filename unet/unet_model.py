@@ -1,11 +1,11 @@
-from unet_parts import *
+from .unet_parts import *
 
 
 class UNet(nn.Module):
-    def __init__(self, n_channels, n_classses, bilinear=False):
+    def __init__(self, n_channels, n_classes, bilinear=False):
         super(UNet, self).__init__()
         self.n_channels = n_channels
-        self.n_classess = n_classses
+        self.n_classes = n_classes
         self.bilinear = bilinear
 
         self.inc = DoubleConv(n_channels, 64)
@@ -18,7 +18,7 @@ class UNet(nn.Module):
         self.up2 = Up(512, 256 // factor, bilinear)
         self.up3 = Up(256, 128 // factor, bilinear)
         self.up4 = Up(128, 64, bilinear)
-        self.outc = OutConv(64, n_classses)
+        self.outc = OutConv(64, n_classes)
 
     def forward(self, x):
         x1 = self.inc(x)
@@ -44,3 +44,4 @@ class UNet(nn.Module):
         self.up2 = torch.utils.checkpoint(self.up2)
         self.up3 = torch.utils.checkpoint(self.up3)
         self.up4 = torch.utils.checkpoint(self.up4)
+        self.outc = torch.utils.checkpoint(self.outc)

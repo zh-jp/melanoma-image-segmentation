@@ -5,7 +5,8 @@ from pathlib import Path
 from os import listdir
 import torch
 from PIL import Image
-
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True  # 避免 OSError: image file is truncated 错误
 uniform = (512, 512)    # 将读入的img、mask，resize该形状
 
 
@@ -79,7 +80,7 @@ class MyDataset(Dataset):
         img = img.resize((w_, h_), resample=Image.NEAREST if is_mask is True else Image.BICUBIC)
         img = np.array(img)
         if is_mask:
-            img[img == 255] = 1
+            img[img > 0] = 1
         else:
             img = img.transpose((2, 0, 1))  # 将通道数移动到第一个下标
             if (img > 1).any():
