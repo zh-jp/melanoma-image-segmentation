@@ -6,8 +6,9 @@ from os import listdir
 import torch
 from PIL import Image
 from PIL import ImageFile
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True  # 避免 OSError: image file is truncated 错误
-uniform = (512, 512)    # 将读入的img、mask，resize该形状
+uniform = (512, 512)  # 将读入的img、mask，resize该形状
 
 
 class MyDataset(Dataset):
@@ -49,10 +50,6 @@ class MyDataset(Dataset):
         assert mask.size == img.size, f"Image and mask {name}'s size should be same, " \
                                       f"but mask size is {mask.size} and image size is {img.size}."
 
-        # 统一图片大小
-        mask = mask.resize(uniform)
-        img = img.resize(uniform)
-
         # 将图片转为numpy数组
         mask = self.preprocess(mask, self.scale, is_mask=True)
         img = self.preprocess(img, self.scale, is_mask=False)
@@ -67,6 +64,13 @@ class MyDataset(Dataset):
 
     @staticmethod
     def preprocess(img, scale, is_mask):
+        """
+        step1: 将图片统一为 uniform尺寸的图片
+        step2: 将图片按scale比例缩小
+        step3: 将图片转为numpy数组
+        """
+        # 统一图片大小
+        img = img.resize(uniform)
         w, h = img.size
         w_, h_ = int(w * scale), int(h * scale)
         assert w_ > 0 and h_ > 0, f"Scale {scale} is too small, images resized would have no pixel."
