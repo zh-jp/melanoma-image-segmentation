@@ -9,5 +9,6 @@
 !**/val_masks/ISIC_0015190_segmentation.png
 #####################################
 /.idea/
-/test/
-
+/test.py/
+**/wandb/**
+**/checkpoint/**
