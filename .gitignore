@@ -1,4 +1,5 @@
 # 训练集、测试集各保留了一张图
+# 分割数据集
 **/imgs/*
 !**/imgs/ISIC_0000000.jpg
 **/masks/*
@@ -7,8 +8,13 @@
 !**/val_imgs/ISIC_0015190.jpg
 **/val_masks/*
 !**/val_masks/ISIC_0015190_segmentation.png
+# 分类数据集
+**/Melanoma/*
+!**/Melanoma/AUG_0_0.jpeg
+**/NotMelanoma/*
+!**/NotMelanoma/ISIC_0024308.jpg
 #####################################
 /.idea/
-/test.py/
-**/wandb/**
-**/checkpoint/**
+**/test.*
+**/wandb/*
+**/checkpoint/*

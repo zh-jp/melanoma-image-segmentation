@@ -1,26 +1,24 @@
 # Melanoma-image-segmentation
 
+## 主目录
+- /idea: IDE配置文件
+- class_part: 分类部分数据集、模型搭建与训练
+- seg_part: 分割部分数据集、模型搭建与训练
 
 ## 数据集
 
-[2017 ISIC Challenge Datasets](https://challenge.isic-archive.com/data/#2017)
+分类训练数据：[Kaggle melanoma](https://www.kaggle.com/datasets/drscarlat/melanoma)
 
-[Kaggle melanoma](https://www.kaggle.com/datasets/drscarlat/melanoma)
-
-## 流程
-
-1. 阅读相关文献和研究资料：在开始你的设计之前，了解黑色素瘤图像分割的研究现状是非常重要的。阅读相关的论文、书籍、技术报告、专利，以及网上的博客、文章，对你的研究非常有帮助。
-
-2. 收集数据集：为了建立黑色素瘤图像分割模型，你需要一个足够的数据集。你可以使用公共的数据集，例如 ISIC（International Skin Imaging Collaboration）数据集。如果这些数据集不符合你的需求，你需要收集和标记自己的数据集。这需要相当的时间和精力，因此要提前计划好。
-
-3. 研究和选择合适的图像分割模型：有许多图像分割模型可以选择，例如传统的阈值分割、边缘检测、区域生长、基于能量函数的分割、基于机器学习的分割等等。针对黑色素瘤图像分割问题，建议选择一些基于深度学习的图像分割模型，例如 U-Net、Mask R-CNN、DeepLab 等。
-
-4. 实现图像分割模型：使用 Python 和深度学习框架，例如 TensorFlow 或 PyTorch，实现你选择的图像分割模型。在训练模型之前，你需要对数据集进行预处理、数据增强等操作。
-
-5. 验证和评估模型：训练模型后，你需要对模型进行验证和评估。使用测试数据集对模型进行测试，评估模型的性能和准确性。
-
-6. 开发黑色素瘤影像分割系统：在模型验证和评估之后，你需要开发黑色素瘤影像分割系统。使用 Python 和相关的库和框架，例如 Flask、Django、FastAPI、Streamlit 等，实现你的系统。你需要设计和实现系统的前端界面、后端服务、数据库等功能，以及集成图像分割模型。
-
-7. 测试和部署系统：在开发完系统之后，进行测试，确保系统能够正确地接收黑色素瘤图像，并输出黑色素瘤图像分割结果。在完成测试后，你需要将系统部署到服务器上，使其能够在真实环境中运行。
+分割训练数据：[2017 ISIC Challenge Datasets](https://challenge.isic-archive.com/data/#2017)
 
 
+
+## 参考文献
+
+1. [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
+2. [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf)
+3. [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
+
+https://zhuanlan.zhihu.com/p/474790387
+
+https://www.jianshu.com/p/9c39e714babb
