@@ -11,11 +11,13 @@
 # 分类数据集
 **/Melanoma/*
 !**/Melanoma/AUG_0_0.jpeg
+!**/Melanoma/AUG_0_11.jpeg
 **/NotMelanoma/*
 !**/NotMelanoma/ISIC_0024308.jpg
+!**/NotMelanoma/ISIC_0024307.jpg
 #####################################
 **/*.log
 /.idea/
-**/test.ipynb
+**/tmp.*
 **/wandb/*
 **/checkpoint/*
