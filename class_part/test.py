@@ -1,5 +1,6 @@
 import logging
-from resnet import ResNet, BasicBlock
+from resnet import ResNet, BasicBlock, Bottleneck
+from densenet import DenseNet
 from tqdm import tqdm
 from dataset import MyDataset
 from torch.utils.data import DataLoader
@@ -31,10 +32,11 @@ def test(model, dataloader, device, amp: bool = True):
 
 
 if __name__ == "__main__":
-    model = ResNet(BasicBlock, [2, 2, 2, 2])
+    # model = ResNet(Bottleneck, [3, 4, 6, 3])
+    model = DenseNet(num_classes=2)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model.load_state_dict(torch.load("./checkpoint/2023-05-11-epoch10.pth", map_location=device))
-    dataset = MyDataset(train_dir, img_scale)
+    model.load_state_dict(torch.load("./checkpoint/2023-05-11-epoch20.pth", map_location=device))
+    dataset = MyDataset(test_dir, img_scale)
 
     loader_args = dict(batch_size=5, num_workers=5,
                        pin_memory=True, drop_last=True)

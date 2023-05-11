@@ -5,7 +5,8 @@ import torch
 import wandb
 from tqdm import tqdm
 from torch import optim, nn
-from resnet import ResNet, BasicBlock
+from resnet import ResNet, BasicBlock, Bottleneck
+from densenet import DenseNet
 from dataset import MyDataset
 from torch.utils.data import DataLoader, random_split
 from evaluate import evaluate
@@ -17,7 +18,7 @@ checkpoint_dir = './checkpoint/'
 def train_model(
         model,
         device,
-        epochs: int = 10,
+        epochs: int = 20,
         batch_size: int = 5,
         learning_rate: float = 1e-5,
         val_percent: float = 0.1,
@@ -115,6 +116,7 @@ if __name__ == "__main__":
                         level=logging.DEBUG,
                         filename=(log_time + '-train.log'),
                         filemode='a')
-    model = ResNet(BasicBlock, [2, 2, 2, 2])
+    # model = ResNet(Bottleneck, [3, 4, 6, 3])
+    model = DenseNet(num_classes=2)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     train_model(model, device)
