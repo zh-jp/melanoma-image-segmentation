@@ -14,7 +14,8 @@
 **/NotMelanoma/*
 !**/NotMelanoma/ISIC_0024308.jpg
 #####################################
+**/*.log
 /.idea/
-**/test.*
+**/test.ipynb
 **/wandb/*
 **/checkpoint/*

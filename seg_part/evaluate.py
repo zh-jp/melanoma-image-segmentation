@@ -8,6 +8,7 @@ from dice import dice_coeff
 def evaluate(net, dataloader, device, amp):
     net.eval()
     num_val_batchs = len(dataloader)
+    total = 0
     dice_score = 0
 
     with torch.autocast(device.type if device.type != 'mps' else 'cpu', enabled=amp):
@@ -21,6 +22,7 @@ def evaluate(net, dataloader, device, amp):
                 assert mask_true.min() >= 0 and mask_true.max() <= 1, 'True mask indices should be in [0,1]'
                 mask_pred = (F.sigmoid(mask_pred) > 0.5).float()
                 dice_score += dice_coeff(mask_pred, mask_true, is_a_batch=True)
+                total += img.size(0)
 
     net.train()
-    return dice_score / max(num_val_batchs, 1)
+    return dice_score / max(total, 1)

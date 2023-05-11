@@ -9,6 +9,7 @@ from dataset import MyDataset
 import torch.nn.functional as F
 from unet.unet_model import UNet
 import wandb
+import time
 from evaluate import evaluate
 
 # 存放的路径
@@ -23,8 +24,8 @@ mask_suffix = '_segmentation'
 def train_model(
         model,
         device,
-        epochs: int = 10,
-        batch_size: int = 5,
+        epochs: int = 20,
+        batch_size: int = 10,
         learning_rate: float = 1e-5,
         val_percent: float = 0.1,
         save_checkpoint: bool = True,
@@ -34,6 +35,7 @@ def train_model(
         momentum: float = 0.999,
         gradient_clipping: float = 1.0
 ):
+    model.to(device=device)
     # 1. 创建数据集
     dataset = MyDataset(img_dir, mask_dir, img_scale, mask_suffix)
 
@@ -147,14 +149,19 @@ def train_model(
                     except:
                         pass
         if save_checkpoint:
+            save_time = time.strftime("%Y-%m-%d", time.localtime())
             static_dict = model.state_dict()
-            name = checkpoint_dir + 'checkpoint_epoch{}.pth'.format(epoch)
+            name = checkpoint_dir + save_time + '-epoch{}.pth'.format(epoch)
             torch.save(static_dict, name)
             logging.info(f'Checkpoint {epoch} saved!')
 
 
 if __name__ == "__main__":
+    log_time = time.strftime("%Y-%m-%d", time.localtime())
+    logging.basicConfig(format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+                        level=logging.DEBUG,
+                        filename=(log_time + '-train.log'),
+                        filemode='a')
     model = UNet(n_channels=3, n_classes=1)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model.to(device=device)
     train_model(model, device)
