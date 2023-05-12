@@ -83,9 +83,12 @@ def train_model(
                 with torch.autocast(device.type if device != 'mps' else 'cpu', enabled=amp):
                     outputs = model(imgs)
                     loss = criterion(outputs, labels)
+
                 optimizer.zero_grad(set_to_none=True)
                 grad_scaler.scale(loss).backward()
                 nn.utils.clip_grad_norm_(model.parameters(), gradient_clipping)
+                grad_scaler.step(optimizer)
+                grad_scaler.update()
 
                 global_step += 1
                 epoch_loss += loss.item()
@@ -116,7 +119,8 @@ if __name__ == "__main__":
                         level=logging.DEBUG,
                         filename=(log_time + '-train.log'),
                         filemode='a')
-    # model = ResNet(Bottleneck, [3, 4, 6, 3])
-    model = DenseNet(num_classes=2)
+    model = ResNet(Bottleneck, [3, 4, 6, 3], num_classes=2)
+    # model = DenseNet(num_classes=2)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cpu')
     train_model(model, device)
