@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from dataset import MyDataset
+from .dataset import MyDataset
 import numpy as np
 from PIL import Image
 
@@ -36,3 +36,28 @@ def mask2img(mask: np.ndarray, outsize: tuple = (512, 512)):  # 将numpy数组�
     mask[mask > 0] = 255
     x_img = Image.fromarray(mask.astype('int8'))
     return x_img.resize(outsize)
+
+
+def get_IoU(img1: Image, img2: Image):
+    assert img1.size == img2.size,\
+        f"Both should be same size, but image1 size is {img1.size} and image2 size is {img2.size}"
+
+    threshold = 127
+    img1_n = np.array(img1)
+    img2_n = np.array(img2)
+    binary_img1 = np.where(img1_n > threshold, 1, 0)
+    binary_img2 = np.where(img2_n > threshold, 1, 0)
+
+    # 计算交集和并集
+    intersection = np.logical_and(binary_img1, binary_img2)
+    union = np.logical_or(binary_img1, binary_img2)
+
+    # 计算交集和并集的面积
+    intersection_area = np.sum(intersection)
+    union_area = np.sum(union)
+
+    # 计算交并比
+    iou = intersection_area / union_area
+
+    return iou
+

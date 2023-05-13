@@ -1,5 +1,5 @@
 import torch
-from dataset import MyDataset
+from .dataset import MyDataset
 
 
 def predict(net, img, device, scale: float = 1.0):
