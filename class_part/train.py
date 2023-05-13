@@ -6,20 +6,19 @@ import wandb
 from tqdm import tqdm
 from torch import optim, nn
 from resnet import ResNet, BasicBlock, Bottleneck
-from densenet import DenseNet
 from dataset import MyDataset
 from torch.utils.data import DataLoader, random_split
 from evaluate import evaluate
 
 img_dir = './data/train/'
 checkpoint_dir = './checkpoint/'
-
+log_dir = "./log/"
 
 def train_model(
         model,
         device,
         epochs: int = 20,
-        batch_size: int = 5,
+        batch_size: int = 10,
         learning_rate: float = 1e-5,
         val_percent: float = 0.1,
         save_checkpoint: bool = True,
@@ -58,7 +57,7 @@ def train_model(
         Validation size:{n_val}
         Checkpoints:    {save_checkpoint}
         Device:         {device.type}
-        Imaging:        {img_scale}
+        Image scale:    {img_scale}
         Mixed precision:{amp}
     ''')
 
@@ -115,12 +114,11 @@ def train_model(
 
 if __name__ == "__main__":
     log_time = time.strftime("%Y-%m-%d", time.localtime())
+    log_filename = log_dir + log_time + '-train.log'
     logging.basicConfig(format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                         level=logging.DEBUG,
-                        filename=(log_time + '-train.log'),
+                        filename=log_filename,
                         filemode='a')
     model = ResNet(Bottleneck, [3, 4, 6, 3], num_classes=2)
-    # model = DenseNet(num_classes=2)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    # device = torch.device('cpu')
     train_model(model, device)

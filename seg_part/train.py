@@ -16,7 +16,7 @@ from evaluate import evaluate
 img_dir = './data/imgs/'
 mask_dir = './data/masks/'
 checkpoint_dir = './checkpoint/'
-
+log_dir = "./log/"
 # 掩膜文件后缀名
 mask_suffix = '_segmentation'
 
@@ -158,9 +158,10 @@ def train_model(
 
 if __name__ == "__main__":
     log_time = time.strftime("%Y-%m-%d", time.localtime())
+    log_filename = log_dir + log_time + '-train.log'
     logging.basicConfig(format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                         level=logging.DEBUG,
-                        filename=(log_time + '-train.log'),
+                        filename=log_filename,
                         filemode='a')
     model = UNet(n_channels=3, n_classes=1)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
