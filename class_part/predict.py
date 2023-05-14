@@ -1,8 +1,9 @@
 import torch
 from .dataset import MyDataset
+from PIL import Image
 
 
-def predict(net, img, device, scale: float = 1.0):
+def predict(net, img: Image, device, scale: float = 1.0) -> int:
     net.to(device=device)
     net.eval()
     img = torch.from_numpy(MyDataset.preprocess(img, scale))
@@ -10,5 +11,5 @@ def predict(net, img, device, scale: float = 1.0):
     img = img.to(device=device, dtype=torch.float32)
     with torch.no_grad():
         output = net(img)
-    _, index = torch.max(output)
+    _, index = torch.max(output, dim=1)
     return index

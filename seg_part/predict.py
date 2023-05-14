@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 
-def predict_img(net, full_img, device, scale=1., out_threshold=0.5):
+def predict(net, full_img: Image, device, scale=1., out_threshold=0.5):
     """
 
     :param net: 模型
@@ -39,7 +39,7 @@ def mask2img(mask: np.ndarray, outsize: tuple = (512, 512)):  # 将numpy数组�
 
 
 def get_IoU(img1: Image, img2: Image):
-    assert img1.size == img2.size,\
+    assert img1.size == img2.size, \
         f"Both should be same size, but image1 size is {img1.size} and image2 size is {img2.size}"
 
     threshold = 127
@@ -60,4 +60,3 @@ def get_IoU(img1: Image, img2: Image):
     iou = intersection_area / union_area
 
     return iou
-
