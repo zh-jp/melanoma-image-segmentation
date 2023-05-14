@@ -1,0 +1,9 @@
+1. `./checkpoint`: 保存模型训练参数
+2. `./data`: 数据集
+3. `./log`: 日志文件
+4. `dataset.py`: 自定义数据集
+5. `evaluate.py`: 使用验证集调整参数
+6. `predict.py`: 调用模型预测单张图片
+7. `resnet.py`: ResNet模型
+8. `test.py`: 在测试集上测试
+9.  `train.py`： 在训练集上训练

@@ -1,0 +1,9 @@
+1. `./checkpoint`: 保存模型训练参数
+2. `./data`: 数据集
+3. `./log`: 日志文件
+4. `./unet`: U-Net模型
+5. `dataset.py`: 自定义数据集
+6. `dice.py`: 计算Dice系数（可作为Loss的一部分）
+7. `evaluate.py`: 使用验证集调整参数
+8. `predict.py`: 调用模型预测单张图片
+9.  `train.py`： 在训练集上训练
