@@ -13,8 +13,8 @@ import time
 from evaluate import evaluate
 
 # 存放的路径
-img_dir = './data/imgs/'
-mask_dir = './data/masks/'
+img_dir = './data/train/imgs/'
+mask_dir = './data/train/masks/'
 checkpoint_dir = './checkpoint/'
 log_dir = "./log/"
 # 掩膜文件后缀名

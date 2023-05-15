@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from .dataset import MyDataset
+from dataset import MyDataset
 import numpy as np
 from PIL import Image
 
@@ -13,7 +13,7 @@ def predict(net, full_img: Image, device, scale=1., out_threshold=0.5):
     :param device: cuda 或 cpu
     :param scale: 图片缩放比例
     :param out_threshold:  sigmoid阈值
-    :return:    由 0 1 构成的 numpy 矩阵，大小为uniform（默认512x512）
+    :return:    由 0 1 构成的 numpy 矩阵，大小为 full_img 的尺寸
     """
     net.eval()
     img = torch.from_numpy(MyDataset.preprocess(full_img, scale, is_mask=False))
@@ -26,16 +26,15 @@ def predict(net, full_img: Image, device, scale=1., out_threshold=0.5):
     return mask[0].long().squeeze().numpy()
 
 
-def mask2img(mask: np.ndarray, outsize: tuple = (512, 512)):  # 将numpy数组转为二值图，255代替1表示黑色
+def mask2img(mask: np.ndarray):  # 将numpy数组转为二值图，255代替1表示黑色
     """
 
     :param mask: 掩膜的numpy数组
-    :param outsize: 输出图像的大小
     :return: Image类型图像
     """
     mask[mask > 0] = 255
     x_img = Image.fromarray(mask.astype('int8'))
-    return x_img.resize(outsize)
+    return x_img
 
 
 def get_IoU(img1: Image, img2: Image):
@@ -60,3 +59,4 @@ def get_IoU(img1: Image, img2: Image):
     iou = intersection_area / union_area
 
     return iou
+
