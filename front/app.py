@@ -66,7 +66,7 @@ def analysis(img_dir: str):
         return None
     index = resnet_predict.predict(net=resnet, img=img, device=device)
     if index == target:
-        pred_mask = unet_predict.mask2img(unet_predict.predict(net=unet, full_img=img, device=device), img.size)
+        pred_mask = unet_predict.mask2img(unet_predict.predict(net=unet, full_img=img, device=device))
         # 不加这一段保存的图片是全黑的
         pred_mask = pred_mask.convert("L")
         pred_mask = pred_mask.point(lambda x: 255 if x > 128 else 0)

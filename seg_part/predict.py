@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from dataset import MyDataset
+from .dataset import MyDataset
 import numpy as np
 from PIL import Image
 
