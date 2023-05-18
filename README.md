@@ -18,7 +18,6 @@
 1. [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 2. [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf)
 3. [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
-
-https://zhuanlan.zhihu.com/p/474790387
-
-https://www.jianshu.com/p/9c39e714babb
+4. https://zhuanlan.zhihu.com/p/474790387
+5. https://www.jianshu.com/p/9c39e714babb
+6. https://www.jianshu.com/p/7f54d8cadeca
