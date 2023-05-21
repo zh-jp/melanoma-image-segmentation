@@ -2,20 +2,10 @@
 **/checkpoint/*
 **/log/*
 **/wandb/*
-**/state_dict/*
 **/tmp/*
-# 训练集、测试集各保留了一张图
-# 分割数据集
-!**/imgs/ISIC_0000000.jpg
-!**/masks/ISIC_0000000_segmentation.png
-!**/val_imgs/ISIC_0015190.jpg
-!**/val_masks/ISIC_0015190_segmentation.png
-# 分类数据集
-!**/Melanoma/AUG_0_0.jpeg
-!**/Melanoma/AUG_0_11.jpeg
-!**/NotMelanoma/ISIC_0024308.jpg
-!**/NotMelanoma/ISIC_0024307.jpg
 #####################################
 /.idea/
 **/tmp.*
 
+!**/AUG_0_11.jpeg
+!/part_class/data/test/NotMelanoma/ISIC_0024307.jpg

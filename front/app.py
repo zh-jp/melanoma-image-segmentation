@@ -1,7 +1,7 @@
-from class_part.resnet import ResNet, Bottleneck
-import class_part.predict as resnet_predict
-from seg_part.unet.unet_model import UNet
-import seg_part.predict as unet_predict
+from part_class.resnet import ResNet, Bottleneck
+import part_class.predict as resnet_predict
+from part_seg.unet.unet_model import UNet
+import part_seg.predict as unet_predict
 import torch
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
@@ -16,8 +16,8 @@ ALLOW_FILE = {'png', 'jpg', 'jpeg'}
 app = Flask(__name__)
 app.config['UPLOAD_DIR'] = UPLOAD_FOLDER
 
-resnet_state_dict_name = "../class_part/checkpoint/2023-05-12-epoch20.pth"
-unet_state_dict_name = "../seg_part/checkpoint/2023-05-11-epoch20.pth"
+resnet_state_dict_name = "../part_class/checkpoint/2023-05-12-epoch20.pth"
+unet_state_dict_name = "../part_seg/checkpoint/2023-05-11-epoch20.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 resnet = ResNet(Bottleneck, [3, 4, 6, 3], num_classes=2).to(device=device)
 resnet.load_state_dict(torch.load(resnet_state_dict_name, map_location=device))
