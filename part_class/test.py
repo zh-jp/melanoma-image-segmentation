@@ -67,7 +67,7 @@ def test(model,
             accuracy = (TP + TN) * 1. / (TP + TN + FP + FN + epsilon)
             precision = TP * 1. / (TP + FP + epsilon)
             recall = TP * 1. / (TP + FN + epsilon)
-
+            F1 = 2. * precision*recall / (precision + recall)
             experiment.log({
                 "TP": TP,
                 "TN": TN,
@@ -76,7 +76,8 @@ def test(model,
                 "total": total,
                 "accuracy": accuracy,
                 "precision": precision,
-                "recall": recall
+                "recall": recall,
+                "F1": F1
             })
 
 
@@ -92,4 +93,4 @@ if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     load_name = checkpoint_dir + "2023-05-12-epoch20.pth"
     model.load_state_dict(torch.load(load_name, map_location=device))
-    test(model, device, img_dir=train_dir)
+    test(model, device, img_dir=test_dir)

@@ -1,7 +1,7 @@
 /* 页面整体 */
 body {
     margin: auto;
-    max-width: 580px;
+    max-width: 1000px;
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
     background-color: lightblue
@@ -21,11 +21,9 @@ footer {
 }
 
 /* 电影列表 */
-.movie-list {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+.urls img{
+    width: 300px;
+    float: left;
 }
 
 .movie-list li {

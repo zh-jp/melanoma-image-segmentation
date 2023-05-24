@@ -3,9 +3,6 @@
 **/log/*
 **/wandb/*
 **/tmp/*
-#####################################
 /.idea/
 **/tmp.*
 
-!**/AUG_0_11.jpeg
-!/part_class/data/test/NotMelanoma/ISIC_0024307.jpg

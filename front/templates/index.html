@@ -43,13 +43,19 @@
             <strong>注意！</strong>这张图大概率不是恶性黑色素瘤！
        </div>
     {% endif %}
-    {% if url %}
+    {% if url1 %}
         <div id="url" class="alert alert-danger">
             <a href="#" class="close" data-dimiss="alert">&times;</a>
             <strong>警告！</strong>这张图大概率是恶性黑色素瘤！
         </div>
-        <img src={{url}} width="500px"> 
-        <p>图片已保存至{{url}}</p>
+        <div id="urls">
+            <img src={{url1}} alt="原图" width="300px"> 
+            <img src={{url2}} alt="掩膜" width="300px">
+            <img src={{url3}} alt="叠加" width="300px">
+        </div>
+        
+
+        <p>图片已保存至{{url1}}</p>
     {% endif %}
     <footer>
         <a>Copyright &copy; 2023 <a href="https://github.com/zh-jp">zh-jp</a></a>

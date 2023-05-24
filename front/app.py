@@ -6,6 +6,7 @@ import torch
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 import os
+from part_seg.mask_in_img import mask_in_img
 from PIL import Image
 import uuid
 
@@ -45,17 +46,18 @@ def upload_images():
         if file and allow_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_DIR'], filename))
-            url = UPLOAD_FOLDER + filename
-            res = analysis(url)
+            url1 = UPLOAD_FOLDER + filename
+            res = analysis(url1)
             if res is None:
                 return render_template('index.html', img_error=True)
             if isinstance(res, str):
                 return render_template('index.html', notmelanoma=True)
             else:
                 filename = str(uuid.uuid1()) + '.png'
-                url = UPLOAD_FOLDER + filename
-                res.save(url)
-                return render_template('index.html', url=url)
+                url2 = UPLOAD_FOLDER + filename
+                res.save(url2)
+                url3 = mask_in_img(url1, url2, save_dir=UPLOAD_FOLDER)
+                return render_template('index.html', url1=url1, url2=url2, url3=url3)
         return render_template('index.html', img_error=True)
 
 

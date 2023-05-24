@@ -1,6 +1,6 @@
 import cv2
 import torch
-import torch.nn as nn
+import uuid
 from PIL import Image
 from dataset import MyDataset
 from resnet import ResNet, Bottleneck
@@ -60,8 +60,9 @@ class ShowGradCam:
         heatmap = cv2.applyColorMap(np.uint8(255 * cam), cv2.COLORMAP_JET) / 255.
         cam = heatmap + np.float32(input_img / 255.)
         cam = cam / np.max(cam) * 255
-        cv2.imwrite('grad_feature.jpg', cam)
-        print('save gradcam result in grad_feature.jpg')
+        filename = str(uuid.uuid1()) + ".jpg"
+        cv2.imwrite(filename, cam)
+        return filename
 
 
 def comp_class_vec(output_vec, index=None):
@@ -84,24 +85,29 @@ def comp_class_vec(output_vec, index=None):
     return class_vec
 
 
+def vis_cnn(net, device, img_dir: str, layer):
+    img = MyDataset.preprocess(Image.open(img_dir), 1.)
+    input_tensor = torch.from_numpy(img)
+    input_tensor = input_tensor.unsqueeze(0).to(device, dtype=torch.float32)
+    net.to(device=device)
+    gradCam = ShowGradCam(layer)
+
+    # forward
+    output = net(input_tensor)
+
+    # backward
+    net.zero_grad()
+    class_loss = comp_class_vec(output)
+    class_loss.backward()
+    filename = gradCam.show_on_img(img_dir)
+    return filename
+
+
 if __name__ == "__main__":
     model = ResNet(Bottleneck, [3, 4, 6, 3], num_classes=2)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     load_name = checkpoint_dir + "2023-05-12-epoch20.pth"
     model.load_state_dict(torch.load(load_name))
-    img_path = "./data/test/Melanoma/AUG_0_26.jpeg"
-    img = MyDataset.preprocess(Image.open(img_path), 1.)
-    input_tensor = torch.from_numpy(img)
-    input_tensor = input_tensor.unsqueeze(0).to(device, dtype=torch.float32)
-    model.to(device=device)
-
-    gradCam = ShowGradCam(model.layer4)
-    # forward
-    output = model(input_tensor)
-    idx = np.argmax(output.cpu().data.numpy())
-
-    # backward
-    model.zero_grad()
-    class_loss = comp_class_vec(output)
-    class_loss.backward()
-    gradCam.show_on_img(img_path)
+    img_path = "./data/test/Melanoma/AUG_0_71.jpeg"
+    filename = vis_cnn(model, device, img_path, model.layer4)
+    print(filename)
