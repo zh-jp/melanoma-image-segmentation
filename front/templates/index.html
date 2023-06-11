@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>melanoma-image-segmentation</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/css/style.css" type="text/css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css"> -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/icon.webp') }}">
 </head>
+
 <body>
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -21,45 +23,70 @@
         </div>
     </div>
     <div>
+
         <form action="/upload" enctype="multipart/form-data" method="post">
-            <input type="file" name="photo", class="btn btn-primary btn-lg btn-block"/>
-            <input type="submit" value="上传" class="btn btn-default btn-lg btn-block" />
+            <div id="upload">
+                <input type="file" name="photo" , class="btn btn-primary btn-lg btn-block" />
+            </div>
+            <div id="submit">
+                <input type="submit" value="上传" class="btn btn-default btn-lg btn-block" />
+            </div>
         </form>
-    
-        <form action="/">
-            <input type="submit" value="刷新" class="btn btn-default btn-lg btn-block">
-        </form>
+
+
+        <div id="refresh">
+            <form action="/">
+                <input type="submit" value="刷新" class="btn btn-default btn-lg btn-block">
+            </form>
+        </div>
+
     </div>
 
     {% if img_error %}
-        <div id="img_error" class="alert alert-warning">
-            <a href="#" class="close" data-dimiss="alert">&times;</a>
-            <strong>系统问题！</strong>图片上传失败 (支持格式：.jpg .png .jpeg)。
-        </div>
+    <div id="img_error" class="alert alert-warning">
+        <a href="#" class="close" data-dimiss="alert">&times;</a>
+        <strong>系统问题！</strong>图片上传失败 (支持格式：.jpg .png .jpeg)。
+    </div>
     {% endif %}
     {% if notmelanoma %}
-       <div id="notmelanoma" class="alert alert-success">
-            <a href="#" class="close" data-dimiss="alert">&times;</a>
-            <strong>注意！</strong>这张图大概率不是恶性黑色素瘤！
-       </div>
+    <div id="notmelanoma" class="alert alert-success">
+        <a href="#" class="close" data-dimiss="alert">&times;</a>
+        <strong>注意！</strong>这张图大概率不是恶性黑色素瘤！
+    </div>
     {% endif %}
     {% if url1 %}
-        <div id="url" class="alert alert-danger">
-            <a href="#" class="close" data-dimiss="alert">&times;</a>
-            <strong>警告！</strong>这张图大概率是恶性黑色素瘤！
+    <div id="url" class="alert alert-danger">
+        <a href="#" class="close" data-dimiss="alert">&times;</a>
+        <strong>警告！</strong>这张图大概率是恶性黑色素瘤！
+    </div>
+    <div id="urls">
+        <div class="show_img">
+            <h2>原图</h2>
+            <img src={{url1}} alt="原图">
+            <br>
+            <p>图片已保存至{{url1}}</p>
         </div>
-        <div id="urls">
-            <img src={{url1}} alt="原图" width="300px"> 
-            <img src={{url2}} alt="掩膜" width="300px">
-            <img src={{url3}} alt="叠加" width="300px">
+        <div class="show_img">
+            <h2>预测掩膜</h2>
+            <img src={{url2}} alt="掩膜">
+            <br>
+            <p>图片已保存至{{url2}}</p>
         </div>
-        
+        <div class="show_img">
+            <h2>掩膜叠加</h2>
+            <img src={{url3}} alt="叠加">
+            <br>
+            <p>图片已保存至{{url3}}</p>
+        </div>
+    </div>
 
-        <p>图片已保存至{{url1}}</p>
+
+    <br>
     {% endif %}
     <footer>
         <a>Copyright &copy; 2023 <a href="https://github.com/zh-jp">zh-jp</a></a>
         <!-- <i class="fa fa-github"><a href="https://github.com/zh-jp">zh-jp</a></i> -->
     </footer>
 </body>
+
 </html>

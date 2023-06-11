@@ -2,8 +2,8 @@ import cv2
 import torch
 import uuid
 from PIL import Image
-from dataset import MyDataset
-from resnet import ResNet, Bottleneck
+from part_class.dataset import MyDataset
+from part_class.resnet import ResNet, Bottleneck
 import numpy as np
 import matplotlib as mpl
 

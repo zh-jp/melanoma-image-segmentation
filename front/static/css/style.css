@@ -1,18 +1,18 @@
 /* 页面整体 */
 body {
     margin: auto;
-    max-width: 1000px;
+    max-width: 600px;
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
     background-color: lightblue
 }
 
-/* 页脚 */
-footer {
-    color: #888;
-    margin-top: 15px;
-    text-align: center;
-    padding: 10px;
+
+
+/* 结果展示 */
+#urls img{
+    margin: auto;
+    width: 300px;
 }
 
 /* 头像 */
@@ -20,28 +20,24 @@ footer {
     width: 40px;
 }
 
-/* 电影列表 */
-.urls img{
-    width: 300px;
-    float: left;
-}
+/* 上传交互*/
+/* #upload {
+    display: inline-block;
+    width: 500px;
+} 
 
-.movie-list li {
-    padding: 12px 24px;
-    border-bottom: 1px solid #ddd;
-}
 
-.movie-list li:last-child {
-    border-bottom:none;
-}
-
-.movie-list li:hover {
-    background-color: #f8f9fa;
-}
-
-/* 龙猫图片 */
-.totoro {
+#submit {
+    display: inline-block;
+    
+} */
+.show_img {
     display: block;
-    margin: 0 auto;
-    height: 100px;
+}
+/* 页脚 */
+footer {
+    color: #888;
+    margin-top: 15px;
+    text-align: center;
+    padding: 10px;
 }
