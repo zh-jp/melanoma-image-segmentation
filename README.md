@@ -50,13 +50,22 @@ U-Net模型在测试集和训练集上的平均交并比分别为59.46%和67.89%
 
 **分割数据：[2017 ISIC Challenge Datasets](https://challenge.isic-archive.com/data/#2017)**
 
-| 下载项                                                                                                                                                                         | 本项目存放数据集的目录           |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| 《Test Data》：[Download (5.4GB)](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Test_v2_Data.zip)                                                                | /part_seg/test/imgs   |
-| 《Test Ground Truth》：[Download (18MB)](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Test_v2_Part1_GroundTruth.zip)                                            | /part_seg/test/masks  |
-| 《Training Data》：[Download (5.8GB)2000 lesion images in JPEG ...](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Training_Data.zip)                             | /part_seg/train/imgs  |
-| 《Training Ground Truth》：[Download (9MB) 2000 binary mask images in PNG format.](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Training_Part1_GroundTruth.zip) | /part_seg/train/masks |
+| 下载项                                                                                                                                                                         | 本项目存放数据集的目录                |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| 《Test Data》：[Download (5.4GB)](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Test_v2_Data.zip)                                                                | /part_seg/data/test/imgs   |
+| 《Test Ground Truth》：[Download (18MB)](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Test_v2_Part1_GroundTruth.zip)                                            | /part_seg/data/test/masks  |
+| 《Training Data》：[Download (5.8GB)2000 lesion images in JPEG ...](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Training_Data.zip)                             | /part_seg/data/train/imgs  |
+| 《Training Ground Truth》：[Download (9MB) 2000 binary mask images in PNG format.](https://isic-challenge-data.s3.amazonaws.com/2017/ISIC-2017_Training_Part1_GroundTruth.zip) | /part_seg/data/train/masks |
 >zip 文件下载解压后放入对应的文件夹即可。
+
+## 本项目用到的训练后的checkpoint
+下载地址：
+```txt
+链接：https://pan.baidu.com/s/1NqWjX994ANx3tToGKGAetg?pwd=qjsk 
+提取码：qjsk
+```
+分别存放于 `/part_cls/checkpoint` 与 `/part_seg/checkpoint`
+
 
 ## 界面截图
 - 界面
