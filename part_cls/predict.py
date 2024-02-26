@@ -1,5 +1,5 @@
 import torch
-from part_class import dataset
+from part_cls import dataset
 from PIL import Image
 
 

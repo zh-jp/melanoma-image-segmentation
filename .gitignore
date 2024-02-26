@@ -1,8 +1,9 @@
 **/data/*
-**/checkpoint/*
-**/log/*
+**.pth
+**.log
 **/wandb/*
 **/tmp/*
-/.idea/
+.idea/
 **/tmp.*
+**/__pycache__
 

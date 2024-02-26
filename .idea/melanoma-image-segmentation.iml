@@ -12,7 +12,6 @@
     <option name="namespacePackageFolders">
       <list>
         <option value="$MODULE_DIR$/part_seg" />
-        <option value="$MODULE_DIR$/part_class" />
       </list>
     </option>
   </component>
