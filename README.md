@@ -45,7 +45,7 @@ U-Net模型在测试集和训练集上的平均交并比分别为59.46%和67.89%
 |-----------|----------------------|
 | test      | /part_cls/data/test  |
 | train     | /part_cls/data/train |
-| valid     | /part_cls/data/val   |
+| valid     | /part_cls/data/train |
 >在本项目，将验证集valid 与训练集train合并，再按照8:2划分为训练集和验证集
 
 **分割数据：[2017 ISIC Challenge Datasets](https://challenge.isic-archive.com/data/#2017)**
