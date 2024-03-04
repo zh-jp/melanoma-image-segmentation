@@ -10,10 +10,10 @@ from part_seg.mask_in_img import mask_in_img
 from PIL import Image
 import uuid
 
-# 上传文件到服务器指定到文件夹中（一定要放在自己起服务到那个文件夹，不要放在本地的其他文件夹中，不然服务器访问不了你的文件）
+# 上传文件到服务器指定到文件夹中
+# Flask 默认静态文件存放在 static 文件夹下，其他文件夹下的文件会导致无法访问
 UPLOAD_FOLDER = 'static/tmp/'
-ALLOW_FILE = {'png', 'jpg', 'jpeg'}
-
+ALLOW_FILE = {'jpg', 'jpeg'}
 app = Flask(__name__)
 app.config['UPLOAD_DIR'] = UPLOAD_FOLDER
 
@@ -40,13 +40,14 @@ def home():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload_images():
     if os.path.exists(UPLOAD_FOLDER) is False:
-        os.mkdir(UPLOAD_FOLDER)
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     if request.method == 'POST':
         file = request.files['photo']
         if file and allow_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_DIR'], filename))
-            url1 = UPLOAD_FOLDER + filename
+            url1 = os.path.join(UPLOAD_FOLDER, filename)
+            url1 = os.path.normpath(url1)
+            file.save(url1)
             res = analysis(url1)
             if res is None:
                 return render_template('index.html', img_error=True)
@@ -54,9 +55,12 @@ def upload_images():
                 return render_template('index.html', notmelanoma=True)
             else:
                 filename = str(uuid.uuid1()) + '.png'
-                url2 = UPLOAD_FOLDER + filename
+                url2 = os.path.join(UPLOAD_FOLDER, filename)
+                url2 = os.path.normpath(url2)
                 res.save(url2)
-                url3 = mask_in_img(url1, url2, save_dir=UPLOAD_FOLDER)
+                url3 = os.path.join(UPLOAD_FOLDER, str(uuid.uuid1()) + '.png')
+                url3 = os.path.normpath(url3)
+                mask_in_img(url1, url2).save(url3)
                 return render_template('index.html', url1=url1, url2=url2, url3=url3)
         return render_template('index.html', img_error=True)
 

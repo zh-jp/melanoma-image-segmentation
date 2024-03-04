@@ -59,12 +59,7 @@ U-Net模型在测试集和训练集上的平均交并比分别为59.46%和67.89%
 >zip 文件下载解压后放入对应的文件夹即可。
 
 ## 本项目用到的训练后的checkpoint
-下载地址：
-```txt
-链接：https://pan.baidu.com/s/1NqWjX994ANx3tToGKGAetg?pwd=qjsk 
-提取码：qjsk
-```
-分别存放于 `/part_cls/checkpoint` 与 `/part_seg/checkpoint`
+[下载地址](https://drive.google.com/file/d/1-8G-p0uGPctDJlLyZZhoiBDyfTErCjwE/view?usp=sharing) ，分别存放于 `/part_cls/checkpoint` 与 `/part_seg/checkpoint`
 
 
 ## 界面截图
@@ -74,6 +69,20 @@ U-Net模型在测试集和训练集上的平均交并比分别为59.46%和67.89%
 ![is_melanoma.png](front%2Fstatic%2Fimages%2Fis_melanoma.png)
 - 非黑色素瘤
 ![not_melanoma.png](front%2Fstatic%2Fimages%2Fnot_melanoma.png)
+
+## 可能的报错
+### 表现
+Web端上传图片后，页面报错
+```txt
+Internal Server Error
+The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+```
+控制台输出
+```txt
+RuntimeError: Given groups=1, weight of size [64, 3, 7, 7], expected input[1, 4, 224, 224] to have 3 channels, but got 4 channels instead
+```
+### 原因
+上传了4通道数据导致，系统仅能处理3通道数据。
 
 ## 参考文献
 1. [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
